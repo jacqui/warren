@@ -39,3 +39,9 @@ Paste in the console, hit enter. You should see something like the following res
 neo4j-sh (0)$ 
 ```
 
+You can select all nodes in the db with the following query in the data browser:
+
+START n=node(*) // Start with all nodes
+RETURN n        // and return them.
+
+// Hit CTRL+ENTER to execute
