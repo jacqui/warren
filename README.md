@@ -41,7 +41,19 @@ neo4j-sh (0)$
 
 You can select all nodes in the db with the following query in the data browser:
 
+```
 START n=node(*) // Start with all nodes
 RETURN n        // and return them.
 
 // Hit CTRL+ENTER to execute
+```
+
+To run the very much a work-in-progress admin application (it's sinatra):
+
+```
+rackup config.ru
+
+## or ##
+
+shotgun config.ru
+```
