@@ -1,12 +1,18 @@
 <div class="page-header">
-  <h1>Warren</h1>
+  <h1>Groups</h1>
 </div>
 
 <% @nodes.each do |node| %>
   <% node_id = $neo.get_id(node) %>
-  <h3><%= node['data']['name'] %></h3>
+  <div class="well">
+    <h3><%= node['data']['name'] %></h3>
+    <p>
+      Based in: <%= $neo.get_node_relationships(node, "all", "BASED_IN").map{|based_in| $neo.get_node(based_in)['data']['name'] }.join(', ') %>
+    </p>
+  </div>
 
   <h4>Members</h4>
+
   <table class="table">
     <thead>
       <th>Title</th>
