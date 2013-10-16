@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>Countries</h1>
+</div>
+
+<% @nodes.each do |node| %>
+  <% node_id = $neo.get_id(node) %>
+  <div class="well">
+
+    <h3><span class="glyphicon glyphicon-flag"></span> <%= node['data']['name'] %></h3>
+  </div>
+
+  <h4>Groups</h4>
+
+  <ul>
+    <% $neo.get_node_relationships(node, "all", "BASED_IN").each do |based_in| %>
+      <% group = $neo.get_node(based_in) %>
+      <li><%= group['data']['name'] %></li>
+    <% end %>
+  </ul>
+<% end %>
+

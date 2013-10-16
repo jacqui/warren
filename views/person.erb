@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>People</h1>
+</div>
+
+<% @nodes.each do |node| %>
+  <% node_id = $neo.get_id(node) %>
+  <div class="well">
+    <h3><%= node['data']['name'] %></h3>
+    <p>
+      Member of: <%= $neo.get_node_relationships(node, "all", "MEMBER_OF").map{|member_of| $neo.get_node(member_of)['data']['name'] }.join(', ') %>
+    </p>
+  </div>
+
+  <dl>
+    <% node['data'].each do |key, value| %>
+      <dt><%= key %></dt>
+      <dd><%= value %></dd>
+    <% end %>
+  </dl>
+<% end %>
+
