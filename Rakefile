@@ -8,3 +8,5 @@ Sinatra::AssetPipeline::Task.define! Assembly
 # alias it here!
 task 'assets:precompile:primary' => 'assets:precompile'
 
+require 'neography/tasks'
+
