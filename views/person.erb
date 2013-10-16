@@ -7,7 +7,13 @@
   <div class="well">
     <h3><%= node['data']['name'] %></h3>
     <p>
-      Member of: <%= $neo.get_node_relationships(node, "all", "MEMBER_OF").map{|member_of| $neo.get_node(member_of)['data']['name'] }.join(', ') %>
+      Member of: 
+      <%
+        memberships = $neo.get_node_relationships(node, "out", "MEMBER_OF").map do |membership|
+          "#{$neo.get_node(membership['end'])['data']['name']}: #{membership['data']['role']} (#{membership['data']['status']})"
+        end
+      %>
+    <%= memberships.join(', ') %>
     </p>
   </div>
 
