@@ -1,26 +1,35 @@
+#!/usr/bin/env ruby
+
 require 'rubygems'
 require 'nokogiri'
+require 'open-uri'
+require 'neography'
+
+initializers = Dir.glob(File.expand_path('../config/initializers/*.rb', File.dirname(__FILE__))).sort
+initializers.each { |file| require file }
 
 class UnImporter
 
   def self.run
-    @doc = Nokogiri::XML( open(File.join(RAILS_ROOT, "db/data/consolidatedlist.xml")))
-
-    @network = Network.find_or_create_by_name "AfPak"
+    @doc = Nokogiri::XML( open("http://www.un.org/sc/committees/1267/AQList.xml") )
 
     @individuals = @doc.search("//CONSOLIDATED_LIST/INDIVIDUALS/INDIVIDUAL")
     puts "Found #{@individuals.size} individuals."
 
-    @people = @places = @groups = []
+    @people = []
+    @places = []
+    @groups = []
+
     @individuals.each do |individual|
       begin
-        first_name = (first_name_node = individual.at("FIRST_NAME")) ? first_name_node.text.strip.titleize : ''
-        last_name = (last_name_node = individual.at("SECOND_NAME")) ? last_name_node.text.strip.titleize : ''
+        first_name = (first_name_node = individual.at("FIRST_NAME")) ? first_name_node.text.strip : ''
+        last_name = (last_name_node = individual.at("SECOND_NAME")) ? last_name_node.text.strip : ''
 
-        raise "We need at least a first name or a last name" if first_name.blank? && last_name.blank?
+        raise "We need at least a first name or a last name" if first_name.nil? && last_name.nil?
 
         puts "Parsing data for #{first_name} #{last_name}"
-        group_name = individual.at("UN_LIST_TYPE").text.strip.titleize
+
+        group_name = individual.at("UN_LIST_TYPE").text.strip
         description = (description_node = individual.at("COMMENTS1")) ? description_node.text.strip : ''
         nationalities = (nationality_nodes = individual.search("NATIONALITY/VALUE")) ? nationality_nodes.map(&:text).join("/") : ''
         dob = (dob_node = individual.at("INDIVIDUAL_DATE_OF_BIRTH/DATE")) ? dob_node.text : ''
@@ -32,12 +41,13 @@ class UnImporter
                 ''
               end
 
-        places << pob
+        @places << pob
 
         aliases = individual.search('INDIVIDUAL_ALIAS/ALIAS_NAME').map{|aka| aka.text.strip }
-        person = { :first_name => first_name, :last_name => :last_name, :bio => description, :dob => dob, :nationalities => nationalities, :pob => pob, :group => group_name, :aka => aliases }
+        person = { :first_name => first_name, :last_name => last_name, :bio => description, :dob => dob, :nationalities => nationalities, :pob => pob, :group => group_name }
+        person[:aka] = aliases if aliases && aliases.size > 0
 
-        people << person
+        @people << person
 
       rescue Exception => e
         puts "Error while parsing individual: #{e.message}"
@@ -56,8 +66,9 @@ class UnImporter
         name = entity.at('FIRST_NAME').text.strip
         aliases = entity.search('ENTITY_ALIAS/ALIAS_NAME').map{|aka| aka.text.strip }
 
-        group = { :name => name, :parent_group_name => parent_group_name, :aka => aliases }
-        groups << group
+        group = { :name => name, :parent_group_name => parent_group_name }
+        group[:aka] = aliases if aliases && aliases.size > 0
+        @groups << group
 
       rescue Exception => e
         puts "Error while parsing group: #{e.message}"
@@ -67,12 +78,27 @@ class UnImporter
       end
     end
 
-    puts "People:"
-    puts people.inspect
-    puts "Places:"
-    puts places.inspect
-    puts "Groups:"
-    puts groups.inspect
+    puts "Places (#{@places.size}):"
+    puts @places.inspect
+    puts
+    puts
+
+    $neo.create_nodes(@places)
+
+    puts "Groups (#{@groups.size}):"
+    puts @groups.inspect
+    puts
+    puts
+
+    $neo.create_nodes(@groups)
+
+    puts "People (#{@people.size}):"
+    puts @people.inspect
+    puts
+    puts
+
+    $neo.create_nodes(@people)
+
   end
 end
 
