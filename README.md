@@ -8,7 +8,7 @@ A tool for tracking the relationships between people, groups, places and more.
 
 You need Oracle's Java 7 runtime environment to use this tool.
 
-* [Java for OS X](http://java.com/en/download/mac_download.jsp)
+* [Java for OS X](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 
 ## Neo4j
 
