@@ -8,13 +8,13 @@ A tool for tracking the relationships between people, groups, places and more.
 
 You need Oracle's Java 7 runtime environment to use this tool.
 
-* [Java for OS X](http://java.com/en/download/mac_download.jsp)
+* [Java for OS X](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 
 ## Neo4j
 
 This app uses the latest 2.0 version of neo4j. You can download that directly at:
 
-* [Neo4j-2.0.0-M05](http://dist.neo4j.org/neo4j-community-2.0.0-M05-unix.tar.gz?edition=community&version=2.0.0-M05&distribution=tarball&dlid=2603331)
+* [Neo4j-2.0.0-M06](http://www.neo4j.org/download_thanks?edition=community&release=2.0.0-M06&platform=unix)
 
 # Usage
 
