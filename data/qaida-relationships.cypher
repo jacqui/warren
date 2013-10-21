@@ -8,5 +8,7 @@ WHERE a.parent_group_name = 'Al-Qaida' AND b.name = 'AL-QAIDA'
 CREATE b-[r:PARENT_GROUP]->a
 RETURN r;
 
+# all things relatedm to al qaida
 
+start a=node(*) match (a)--(x) where a.name="AL-QAIDA" return a,x
 
