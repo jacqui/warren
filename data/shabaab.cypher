@@ -60,4 +60,5 @@ CREATE  (shabaab:Group { name : "Al-Shabaab" , aka : "AL-SHABAAB AL-ISLAAM, AL-S
         (shabaab)-[:DESIGNATION { type: "terrorist group", date: "2012-08-18" } ]->(au),
         (shabaab)-[:DESIGNATION { type: "terrorist group", date: "2010-02-01" } ]->(nz),
         (shabaab)-[:DESIGNATION { type: "terrorist group", date: "2010-03-05" } ]->(ca)
+      RETURN *
       ;
