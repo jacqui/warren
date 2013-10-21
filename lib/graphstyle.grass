@@ -23,7 +23,7 @@ node.Person {
   text-color-internal: #000000;
   diameter: 40px;
   border-width: 2px;
-  caption: '{name}';
+  caption: '{first_name} {last_name}';
   font-size: 10px;
 }
 
