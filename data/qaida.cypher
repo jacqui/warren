@@ -17,8 +17,8 @@
  (:Group { name : "AL-HARAMAYN FOUNDATION (KENYA)", parent_group_name: "Al-Qaida", aka : ""}), 
  (:Group { name : "AL-HARAMAYN FOUNDATION (TANZANIA)", parent_group_name: "Al-Qaida", aka : ""}), 
  (:Group { name : "AL-ITIHAAD AL-ISLAMIYA / AIAI", parent_group_name: "Al-Qaida", aka : ""}), 
- (:Group { name : "AL-QAIDA", parent_group_name: "Al-Qaida", aka : "The Base, Al Qaeda, Islamic Salvation Foundation, The Group for the Preservation of the Holy Sites, The Islamic Army for the Liberation of Holy Places, The World Islamic Front for Jihad Against Jews and Crusaders, Usama Bin Laden Network, Usama Bin Laden Organization, Al Qa'ida, Al Qa’ida/Islamic Army (formerly listed as)"}), 
- (:Group { name : "AL-QAIDA IN IRAQ", parent_group_name: "Al-Qaida", aka : "AQI, al-Tawhid, the Monotheism and Jihad Group, Qaida of the Jihad in the Land of the Two Rivers, Al-Qaida of Jihad in the Land of the Two Rivers, The Organization of Jihad’s Base in the Country of the Two Rivers, The Organization Base of Jihad/Country of the Two Rivers, The Organization Base of Jihad/Mesopotamia, Tanzim Qa’idat Al-Jihad fi Bilad al-Rafidayn, Tanzeem Qa’idat al Jihad/Bilad al Raafidaini, Jama'at Al-Tawhid Wa'al-Jihad, JTJ, Islamic State of Iraq, ISI, al-Zarqawi network, Jabhat al Nusrah, Jabhet al-Nusra, Al-Nusrah Front, The Victory Front, Al-Nusrah Front for the People of the Levant ( ﺠﺑﻬﺔ ﺍﻟﻨﺻﺮﺓ ﻷﻫﻝ ﺍﻠﺷﺍﻢ), Islamic State in Iraq and the Levant"}), 
+ (alq:Group { name : "AL-QAIDA", parent_group_name: "Al-Qaida", aka : "The Base, Al Qaeda, Islamic Salvation Foundation, The Group for the Preservation of the Holy Sites, The Islamic Army for the Liberation of Holy Places, The World Islamic Front for Jihad Against Jews and Crusaders, Usama Bin Laden Network, Usama Bin Laden Organization, Al Qa'ida, Al Qa’ida/Islamic Army (formerly listed as)"}), 
+ (alqiraq:Group { name : "AL-QAIDA IN IRAQ", parent_group_name: "Al-Qaida", aka : "AQI, al-Tawhid, the Monotheism and Jihad Group, Qaida of the Jihad in the Land of the Two Rivers, Al-Qaida of Jihad in the Land of the Two Rivers, The Organization of Jihad’s Base in the Country of the Two Rivers, The Organization Base of Jihad/Country of the Two Rivers, The Organization Base of Jihad/Mesopotamia, Tanzim Qa’idat Al-Jihad fi Bilad al-Rafidayn, Tanzeem Qa’idat al Jihad/Bilad al Raafidaini, Jama'at Al-Tawhid Wa'al-Jihad, JTJ, Islamic State of Iraq, ISI, al-Zarqawi network, Jabhat al Nusrah, Jabhet al-Nusra, Al-Nusrah Front, The Victory Front, Al-Nusrah Front for the People of the Levant ( ﺠﺑﻬﺔ ﺍﻟﻨﺻﺮﺓ ﻷﻫﻝ ﺍﻠﺷﺍﻢ), Islamic State in Iraq and the Levant"}), 
  (:Group { name : "AL-QAIDA IN THE ARABIAN PENINSULA (AQAP)", parent_group_name: "Al-Qaida", aka : "Al-Qaida of Jihad Organization in the Arabian Peninsula, Tanzim Qa’idat al-Jihad fi Jazirat al-Arab, Al-Qaida Organization in the Arabian Peninsula (AQAP), Al-Qaida in the South Arabian Peninsula, Ansar al-Shari'a (AAS), Al-Qaida in Yemen (AQY)"}), 
  (:Group { name : "AL RASHID TRUST", parent_group_name: "Al-Qaida", aka : "Al-Rasheed Trust, Al Rasheed Trust, Al-Rashid Trust, Aid Organization of the Ulema, Pakistan, Al Amin Welfare Trust, Al Amin Trust, Al Ameen Trust, Al-Ameen Trust, Al Madina Trust, Al-Madina Trust"}), 
  (:Group { name : "ANSAR AL-ISLAM", parent_group_name: "Al-Qaida", aka : "Devotees of Islam, Jund al-Islam, Soldiers of Islam, Kurdistan Supporters of Islam, Supporters of Islam in Kurdistan, Followers of Islam in Kurdistan, Kurdish Taliban, Soldiers of God, Ansar al-Sunna Army, Jaish Ansar al-Sunna, Ansar al-Sunna"}), 
@@ -66,6 +66,7 @@
  (egypt:Country { name : "Egypt" }), 
  (malaysia:Country { name : "Malaysia" }), 
  (iraq:Country { name : "Iraq" }), 
+ (alqiraq-[:BASED_IN]->(iraq),
  (indonesia:Country { name : "Indonesia" }), 
  (libyanarabjamahiriya:Country { name : "Libyan Arab Jamahiriya" }), 
  (pakistan:Country { name : "Pakistan" }), 
@@ -76,6 +77,9 @@
  (unitedstatesofamerica:Country { name : "United States of America" }), 
  (syrianarabrepublic:Country { name : "Syrian Arab Republic" }), 
  (afghanistan:Country { name : "Afghanistan" }), 
+ (alq-[:BASED_IN]->(afghanistan),
+ (alq-[:BASED_IN]->(pakistan),
+ (alq-[:BASED_IN]->(saudiarabia),
  (yemen:Country { name : "Yemen" }), 
  (qatar:Country { name : "Qatar" }), 
  (ethiopia:Country { name : "Ethiopia" }), 
@@ -562,5 +566,7 @@
 (:Person { first_name: "IMED", last_name: "BEN MEKKI", bio: "Mother’s name is Zina al-Zarkaoui. Imprisoned in France since 1 Feb. 2010 on charges of criminal conspiracy in relation to a terrorist organization. Review pursuant to Security Council resolution 1822 (2008) was concluded on 6 May 2010.", dob: "1973-01-15", nationalities: "Tunisian", pob: "Tunis, Tunisia", group: "Al-Qaida", aka: "Dour Nadre, Dour Nadre, Daour Nadre, Imad ben al-Mekki ben al-Akhdar al-Zarkaoui (previously listed as), Zarga, Nadra" }), 
 (:Person { first_name: "AHMAD", last_name: "ZERFAOUI", bio: "Former member of The Organization of Al-Qaida in the Islamic Maghreb (QE.T.14.01.). Confirmed to have died in northern Mali on 19 Sep. 2006. Review pursuant to Security Council resolution 1822 (2008) was concluded on 27 Jul. 2010.", dob: "1963-07-15", nationalities: "Algerian", pob: "Chréa, Algeria", group: "Al-Qaida", aka: "Abdullah, Abdalla, Smail, Abu Khaoula, Abu Cholder, Nuhr" }), 
 (:Person { first_name: "MERAI", last_name: "ZOGHBAI", bio: "Considered a fugitive from justice by the Italian authorities and sentenced in absentia to 6 years imprisonment on 20 Nov. 2008. Member of Libyan Islamic Fighting Group (QE.L.11.01). Review pursuant to Security Council resolution 1822 (2008) was concluded on 20 Jul. 2009.", dob: "1969-04-04", nationalities: "", pob: "Bengasi, Libyan Arab Jamahiriya", group: "Al-Qaida", aka: "F’raji di Singapore, F’raji il Libico, Mohamed Lebachir, Meri Albdelfattah Zgbye, Zoghbai Merai Abdul Fattah, Lazrag Faraj, Larzg Ben Ila, Farag, Fredj, Muhammed El Besir" }), 
-(:Person { first_name: "ZULKARNAEN", last_name: "", bio: "Review pursuant to Security Council resolution 1822 (2008) was concluded on 8 Jun. 2010.", dob: "", nationalities: "Indonesian", pob: "", group: "Al-Qaida", aka: "Zulkarnan, Zulkarnain, Zulkarnin, Arif Sunarso, Aris Sumarsono, Aris Sunarso, Ustad Daud Zulkarnaen, Murshid" }); 
+(:Person { first_name: "ZULKARNAEN", last_name: "", bio: "Review pursuant to Security Council resolution 1822 (2008) was concluded on 8 Jun. 2010.", dob: "", nationalities: "Indonesian", pob: "", group: "Al-Qaida", aka: "Zulkarnan, Zulkarnain, Zulkarnin, Arif Sunarso, Aris Sumarsono, Aris Sunarso, Ustad Daud Zulkarnaen, Murshid" })
+
+return *; 
 
