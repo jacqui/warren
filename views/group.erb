@@ -6,31 +6,35 @@
   <% node_id = $neo.get_id(node) %>
   <div class="well">
     <h3><%= node['data']['name'] %></h3>
-    <p>
-      Based in: <%= $neo.get_node_relationships(node, "all", "BASED_IN").map{|based_in| $neo.get_node(based_in)['data']['name'] }.join(', ') %>
-    </p>
+    <% if bases = $neo.get_node_relationships(node, "all", "BASED_IN") %>
+      <p>
+      Based in: <%= bases.map{|based_in| $neo.get_node(based_in['end'])['data']['name'] }.join(', ') %>
+      </p>
+    <% end %>
   </div>
 
-  <h4>Members</h4>
+  <% if relations = $neo.get_node_relationships(node, "all", "MEMBER_OF") %>
+    <h4>Members</h4>
 
-  <table class="table">
-    <thead>
-      <th>Title</th>
-      <th>Name</th>
-      <th>Aliases</th>
-      <th></th>
-    </thead>
-    <tbody>
-      <% $neo.get_node_relationships(node, "all", "MEMBER_OF").each do |relation| %>
-        <% member = $neo.get_node(relation) %>
-        <tr>
-          <td><%= relation['data']['role'] %> (<%= relation['data']['status'] %>)</td>
-          <td><%= member['data']['name'] %></td>
-          <td><%= member['data']['aka'] %></td>
-          <td></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <table class="table">
+      <thead>
+        <th>Title</th>
+        <th>Name</th>
+        <th>Aliases</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <% relations.each do |relation| %>
+          <% member = $neo.get_node(relation['start']) %>
+          <tr>
+            <td><%= relation['data']['role'] %> (<%= relation['data']['status'] %>)</td>
+            <td><%= member['data']['name'] %></td>
+            <td><%= member['data']['aka'] %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>
 
