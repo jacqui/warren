@@ -3,25 +3,37 @@
 </div>
 
 <% @nodes.each do |node| %>
-  <% node_id = $neo.get_id(node) %>
   <div class="well">
     <h3><%= node['data']['name'] %></h3>
-    <p>
-      Member of: 
-      <%
-        memberships = $neo.get_node_relationships(node, "out", "MEMBER_OF").map do |membership|
-          "#{$neo.get_node(membership['end'])['data']['name']}: #{membership['data']['role']} (#{membership['data']['status']})"
-        end
-      %>
-    <%= memberships.join(', ') %>
-    </p>
   </div>
 
-  <dl>
+  <table class="table">
     <% node['data'].each do |key, value| %>
-      <dt><%= key %></dt>
-      <dd><%= value %></dd>
+      <% next if key == 'name' %>
+      <tr>
+        <th><%= key %></th>
+        <td><%= value %></td>
+      </tr>
     <% end %>
-  </dl>
+  </table>
+
+  <% if memberships = $neo.get_node_relationships(node, "out", "MEMBER_OF") %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Group</th>
+          <th>Title</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% memberships.each do |membership| %>
+          <tr>
+            <td><%= $neo.get_node(membership['end'])['data']['name'] %></td>
+            <td><%= membership['data']['role'] %></td><td><%= membership['data']['status'] %></td>
+        <% end %>
+      </tbody>
+    <% end %>
+  </table>
 <% end %>
 
