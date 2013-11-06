@@ -1,0 +1,44 @@
+<div class="page-header">
+  <h1>Node #<%= params[:id] %></h1>
+</div>
+
+<table class="table">
+  <tr>
+    <th>Categories</th>
+    <td>
+      <% $neo.get_node_labels(@node).each do |label| %>
+        <a href="/labels/<%= label %>"><%= label %></a>
+      <% end %>
+    </td>
+  </tr>
+
+  <% @node['data'].each do |key, value| %>
+    <tr>
+      <th><%= key %></th>
+      <td><%= value %></td>
+    </tr>
+  <% end %>
+</table>
+
+<% if relationships = $neo.get_node_relationships(@node, "all") %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Relationship</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% relationships.each do |relationship| %>
+        <tr>
+          <td><%= relationship.inspect %></td>
+          <td><%= $neo.get_node(relationship['end'])['data']['name'] %></td>
+          <td><%= relationship['data']['role'] %></td>
+          <td><%= relationship['data']['status'] %></td>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>
+

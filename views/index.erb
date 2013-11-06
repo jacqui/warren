@@ -1,12 +1,20 @@
 <div class="page-header">
-<h1>Categories</h1>
+<h1>Deciphering the labyrinth of connections in news</h1>
 </div>
 
+<h2>Categories</h2>
 <ul>
 <% @labels.each do |label| %>
   <li><a href="/labels/<%= label %>"><%= label %></a></li>
 <% end %>
 </ul>
 
+
+<h2>Relationship Types</h2>
+<ul>
+<% @relationship_types.each do |rel_type| %>
+  <li><a href="/relationships/<%= rel_type %>"><%= rel_type %></a></li>
+<% end %>
+</ul>
 
 

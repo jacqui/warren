@@ -1,0 +1,14 @@
+<div class="page-header">
+  <h1>Nodes</h1>
+</div>
+
+<% @labeled_nodes.each do |label, nodes| %>
+
+  <h3><%= label %> (<%= nodes.size %>)</h3>
+
+  <ul>
+    <% nodes.each do |node| %>
+      <li><a href="/nodes/<%= $neo.get_id(node) %>"><%= node['data']['name'] %></a></li>
+    <% end %>
+  </ul>
+<% end %>

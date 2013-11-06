@@ -17,7 +17,8 @@ class Warren < Sinatra::Base
   #
   # Responds to html and json requests
   get '/', :provides => [:html, :json] do
-    @labels = $neo.list_labels
+    @labels = $neo.list_labels.sort
+    @relationship_types = $neo.list_relationship_types
     respond_with :index
   end
 
@@ -27,5 +28,21 @@ class Warren < Sinatra::Base
   get '/labels/:label', :provides => [:html, :json] do
     @nodes = $neo.get_nodes_labeled(params[:label])
     respond_with params[:label].downcase.to_sym
+  end
+
+  # Node
+  #
+  # Responds to html and json requests
+  get '/nodes/:id', :provides => [:html, :json] do
+    @node = $neo.get_node(params[:id])
+    respond_with :node
+  end
+
+  # Nodes (generic listing)
+  #
+  # Responds to html and json requests
+  get '/nodes', :provides => [:html, :json] do
+    @labeled_nodes = $neo.list_labels.sort.map {|label| [label, $neo.get_nodes($neo.get_nodes_labeled(label))] }
+    respond_with :nodes
   end
 end
