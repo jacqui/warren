@@ -28,9 +28,14 @@
       </thead>
       <tbody>
         <% memberships.each do |membership| %>
+          <%
+            rel_node = $neo.get_node(membership['end'])
+            id =  $neo.get_id(rel_node)
+          %>
           <tr>
-            <td><%= $neo.get_node(membership['end'])['data']['name'] %></td>
+            <td><a href="/nodes/<%= id %>"><%= rel_node['data']['name'] %></a></td>
             <td><%= membership['data']['role'] %></td><td><%= membership['data']['status'] %></td>
+          </tr>
         <% end %>
       </tbody>
     <% end %>
