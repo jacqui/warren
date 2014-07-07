@@ -1,8 +1,6 @@
 source "https://rubygems.org"
-source 'http://gems.newsdev.net'
 
-gem "sinatra"
-gem "sinatra-contrib"
-gem "neography", "~> 1.2.2"
-gem "debugger"
+gem "sinatra", "~> 1.4.5"
+gem "sinatra-contrib", "~> 1.4.2"
+gem "neography", "~> 1.5.2"
 gem "shotgun"
